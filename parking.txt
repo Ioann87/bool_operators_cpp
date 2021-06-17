@@ -1,0 +1,266 @@
+class Human {
+private:
+	string name;
+	int age;
+	double money;
+	int place;
+	char gender;
+public:
+	Human();
+	Human(string, int, double, char);
+	~Human(){}
+	void set_name(string);
+	string get_name();
+	void set_age(int);
+	int get_age();
+	void set_money(double);
+	double get_money();
+	void set_place(int);
+	int get_place();
+	void set_gender(char);
+	char get_gender();
+
+	Human operator+(const Human&);
+	Human operator-(const Human&);
+
+	bool operator>(const Human&);
+	bool operator<(const Human&);
+	bool operator==(const Human&);
+
+	friend istream& operator >> (istream&, Human&);
+	friend ostream& operator << (ostream&, const Human&);
+
+};
+
+Human::Human() {
+	name = "";
+	age = 0;
+	money = 0.0;
+	place = 0;
+	gender = '\0';
+}
+
+Human::Human(string name, int age, double money, char gender) {
+	set_name(name);
+	set_age(age);
+	set_money(money);
+	set_gender(gender);
+}
+
+void Human::set_name(string name) {
+	this->name = name;
+	return;
+}
+string Human::get_name() {
+	return name;
+}
+void Human::set_age(int age) {
+	this->age = age;
+	return;
+}
+int Human::get_age() {
+	return age;
+}
+void Human::set_money(double money) {
+	this->money = money;
+	return;
+}
+double Human::get_money() {
+	return money;
+}
+void Human::set_place(int place) {
+	this->place = place;
+	return;
+}
+int Human::get_place() {
+	return place;
+}
+void Human::set_gender(char gender) {
+	this->gender = gender;
+	return;
+}
+char Human::get_gender() {
+	return gender;
+}
+
+Human Human::operator+(const Human& pers) {
+	Human temp;
+	temp.name = "Mega";
+	temp.age = age + pers.age;
+	temp.money = money + pers.money;
+	temp.place = place + pers.place;
+	temp.gender = 'M';
+	return temp;
+}
+Human Human::operator-(const Human& pers) {
+	Human temp;
+	temp.name = "Figa";
+	temp.age = age - pers.age;
+	temp.money = money - pers.money;
+	temp.place = place - pers.place;
+	temp.gender = 'F';
+	return temp;
+}
+
+bool Human::operator>(const Human& pers) {
+	if (this->money > pers.money)
+		return true;
+	else
+		return false;
+}
+bool Human::operator<(const Human& pers) {
+	if (this->money < pers.money)
+		return true;
+	else
+		return false;
+}
+bool Human::operator==(const Human& pers) {
+	if (this->money == pers.money)
+		return true;
+	else
+		return false;
+}
+
+istream& operator >> (istream& in, Human& pers) {
+	cout << "Name: ";
+	in >> pers.name;
+	cout << "Age: ";
+	in >> pers.age;
+	cout << "Gender: ";
+	in >> pers.gender;
+	cout << "Money: ";
+	in >> pers.money;
+	cout << "Place: ";
+	in >> pers.place;
+
+	in.ignore();
+
+	return in;
+}
+ostream& operator << (ostream& out, const Human& pers) {
+	cout << "Name: ";
+	out << pers.name;
+	cout << "Age: ";
+	out << pers.age;
+	cout << "Gender: ";
+	out << pers.gender;
+	cout << "Money: ";
+	out << pers.money;
+	cout << "Place: ";
+	out << pers.place;
+
+	return out;
+}
+
+class Parking {
+private:
+	int capacity;
+	double profit;
+	vector<double> price[10];
+	vector<Human> places[10];
+public:
+	Parking();
+	~Parking() {};
+
+	void set_price(vector<double>, vector<Human>);
+	vector<double> get_price();
+	void set_capacity(int);
+	int get_capacity();
+	void set_profit(double);
+	double get_profit();
+	void set_places(Human);
+	vector<Human> get_places();
+
+	double calc_price(Human&);
+	double calc_profit(vector<double>[10]);
+
+	friend ostream& operator << (ostream& out, const Parking& pers);
+};
+
+Parking::Parking() {
+	capacity = 10;
+	profit = 0.0;
+}
+
+
+void Parking::set_price(vector<double>, vector<Human>) {
+	for (int i = 0; i < 10; i++)
+	{
+		price[i].push_back(calc_price(places->at(i)));
+	}
+	return;
+}
+vector<double> Parking::get_price() {
+	for (size_t i = 0; i < 10; i++)
+	{
+		return price[i];
+	};
+}
+void Parking::set_capacity(int) {
+	capacity -= places->size();
+	return;
+}
+int Parking::get_capacity() {
+	return capacity;
+}
+void Parking::set_profit(double) {
+	profit = calc_profit(price);
+	return;
+}
+double Parking::get_profit() {
+	return profit;
+}
+void Parking::set_places(Human pers) {
+	for (size_t i = 0; i < 10; i++)
+	{
+		places[i].push_back(pers);
+	}
+	return;
+}
+vector<Human> Parking::get_places() {
+	for (size_t i = 0; i < 10; i++)
+	{
+		return places[i];
+	}
+}
+
+double Parking::calc_price(Human& pers) {
+	double price = 0.0;
+	if (pers.get_gender == 'm') {
+		price = 20 * 1.5;
+	}
+	else if (pers.get_gender == 'f') {
+		price = 20 * 1.7;
+	}
+	else {
+		price = 20 * 2;
+	}
+	return price;
+}
+double Parking::calc_profit(vector<double>[10]) {
+	double profit = 0.0;
+	for (size_t i = 0; i < 10; i++)
+	{
+		profit += price->at(i);
+	}
+	return profit;
+}
+
+ostream& operator << (ostream& out, const Parking& pers) {
+	for (size_t i = 0; i < 10; i++)
+	{
+		cout << "Price: ";
+		out << pers.price->at(i);
+	}
+	return out;
+}
+
+
+int main() {
+	srand(time(NULL));
+
+
+
+	system("pause");
+	return 0;
+}
