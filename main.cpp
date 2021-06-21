@@ -42,9 +42,9 @@ int main()
     new_students.close();
 
     ifstream new_students1("/home/shastiva/c_projects/homework23/new_students");
-
-    Student obj2;
+    
     for (int i = 0; i < 10; i++) {
+        Student obj2;
         new_students1 >> obj2;
         students_out.push_back(obj2);
     }
@@ -55,14 +55,7 @@ int main()
         cout << students_out.at(i);
     }
 
-    Student obj3(names[rand() % 67], rand() % 80 + 15, bals);
 
-    Student obj4;
-
-    cout << "obj3 : " << endl;
-    cout << obj3;
-    obj4 = obj3;
-    cout << "obj4 : " << endl;
 
     return 0;
 }
