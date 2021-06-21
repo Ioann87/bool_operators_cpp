@@ -13,23 +13,56 @@ int main()
     vector<string> names;
     string name;
 
-    ofstream file;
-    file.open("Names.txt");
-
-    while (!file.eof()) {
-        file.getline(file, name);
-        names.push_back();
+    ifstream file("/home/shastiva/c_projects/homework23/Names");
+    while (getline(file, name)) {
+        names.push_back(name);
     }
-
+    file.close();
     vector<int> bals;
 
-    for (int i = 0; i < 7; i++) {
-        bals.push_back((rand() % 20));
+    vector<Student> students;
+
+    for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 7; i++) {
+            bals.push_back((rand() % 20));
+        }
+        Student obj(names[rand() % 67], rand() % 80 + 15, bals);
+        students.push_back(obj);
+        bals.clear();
     }
 
-    Student obj(name, 33, bals);
+    ofstream new_students;
 
-    cout << obj;
+    new_students.open("/home/shastiva/c_projects/homework23/new_students");
+    for (int i = 0; i < 10; i++) {
+        new_students << students[i] << endl;
+    }
+    vector<Student> students_out;
+
+    new_students.close();
+
+    ifstream new_students1("/home/shastiva/c_projects/homework23/new_students");
+
+    Student obj2;
+    for (int i = 0; i < 10; i++) {
+        new_students1 >> obj2;
+        students_out.push_back(obj2);
+    }
+
+    new_students1.close();
+
+    for (int i = 0; i < 10; i++) {
+        cout << students_out.at(i);
+    }
+
+    Student obj3(names[rand() % 67], rand() % 80 + 15, bals);
+
+    Student obj4;
+
+    cout << "obj3 : " << endl;
+    cout << obj3;
+    obj4 = obj3;
+    cout << "obj4 : " << endl;
 
     return 0;
 }

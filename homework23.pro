@@ -11,4 +11,5 @@ HEADERS += \
     student.h
 
 DISTFILES += \
-    Names
+    Names \
+    new_students
